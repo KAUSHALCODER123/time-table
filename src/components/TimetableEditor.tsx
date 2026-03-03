@@ -368,68 +368,73 @@ export default function TimetableEditor({ adminKey }: Props) {
             <style>{`
                 .editor-layout {
                     display: grid;
-                    grid-template-columns: 240px 1fr;
-                    gap: 1.5rem;
-                    min-height: 500px;
+                    grid-template-columns: 220px 1fr;
+                    gap: 1rem;
+                    min-height: 400px;
                 }
                 .editor-sidebar {
-                    background: var(--card-bg);
-                    padding: 1.25rem;
-                    border-radius: var(--radius-md);
-                    border: 1px solid var(--border-color);
+                    background: var(--bg-secondary);
+                    padding: 1rem;
+                    border-radius: var(--radius-lg);
+                    border: 0.5px solid var(--border);
                     display: flex;
                     flex-direction: column;
                     overflow: hidden;
-                    box-shadow: var(--shadow-sm);
+                    box-shadow: var(--shadow);
                 }
                 .teacher-drag-list {
                     overflow-y: auto;
                     display: flex;
                     flex-direction: column;
-                    gap: 0.75rem;
-                    padding: 0.5rem 0;
+                    gap: 0.5rem;
+                    padding: 0.25rem 0;
+                    -webkit-overflow-scrolling: touch;
                 }
                 .draggable-teacher {
                     cursor: grab;
-                    padding: 0.85rem !important;
+                    padding: 0.75rem !important;
                     margin: 0 !important;
                     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
                     user-select: none;
-                    background: var(--bg-secondary);
-                    border: 1px solid var(--border-color);
+                    background: var(--bg-primary);
+                    border: 0.5px solid var(--border);
+                    border-radius: var(--radius-sm) !important;
                 }
                 .draggable-teacher:hover {
                     border-color: var(--accent-primary);
-                    background: var(--bg-tertiary);
-                    transform: translateY(-2px);
-                    box-shadow: var(--shadow-md);
+                    background: var(--bg-card-hover);
+                    box-shadow: var(--shadow);
                 }
                 .draggable-teacher:active {
                     cursor: grabbing;
-                    transform: scale(0.98);
+                    transform: scale(0.97);
                 }
                 .draggable-teacher .teacher-name {
                     font-weight: 600;
-                    font-size: 0.9rem;
+                    font-size: 0.85rem;
                     color: var(--text-primary);
                 }
                 .draggable-teacher .teacher-subject {
-                    font-size: 0.75rem;
-                    color: var(--text-muted);
+                    font-size: 0.72rem;
+                    color: var(--text-secondary);
+                    margin-top: 1px;
                 }
                 .editor-main {
                     display: flex;
                     flex-direction: column;
-                    gap: 1.25rem;
+                    gap: 1rem;
+                    min-width: 0;
                 }
                 .editor-header {
                     display: flex;
                     align-items: center;
-                    gap: 1.5rem;
-                    background: var(--card-bg);
-                    padding: 0.75rem 1.25rem;
-                    border-radius: var(--radius-md);
-                    border: 1px solid var(--border-color);
+                    gap: 0.75rem;
+                    background: var(--bg-secondary);
+                    padding: 0.6rem 0.85rem;
+                    border-radius: var(--radius);
+                    border: 0.5px solid var(--border);
+                    flex-wrap: wrap;
+                    box-shadow: var(--shadow);
                 }
                 .nav-row {
                     display: flex;
@@ -437,18 +442,18 @@ export default function TimetableEditor({ adminKey }: Props) {
                 }
                 .view-toggle {
                     display: inline-flex;
-                    background: var(--bg-primary);
-                    border: 1px solid var(--border);
+                    background: var(--bg-tertiary);
+                    border: 0.5px solid var(--border);
                     padding: 3px;
                     border-radius: 10px;
                     gap: 2px;
                 }
                 .ed-toggle-btn {
-                    padding: 0.45rem 1rem;
+                    padding: 0.4rem 0.85rem;
                     border: none;
                     background: transparent;
                     font-family: inherit;
-                    font-size: 0.82rem;
+                    font-size: 0.8rem;
                     font-weight: 500;
                     color: var(--text-secondary);
                     cursor: pointer;
@@ -462,29 +467,39 @@ export default function TimetableEditor({ adminKey }: Props) {
                 .ed-toggle-btn.active {
                     background: var(--accent-primary);
                     color: #fff;
-                    box-shadow: 0 2px 8px var(--accent-glow);
+                    box-shadow: 0 2px 6px var(--accent-glow);
                 }
                 .filter-item {
                     display: flex;
                     align-items: center;
-                    gap: 0.75rem;
-                    font-size: 0.9rem;
+                    gap: 0.5rem;
+                    font-size: 0.85rem;
+                }
+                .filter-item label {
+                    white-space: nowrap;
+                    font-weight: 500;
+                    color: var(--text-secondary);
+                    font-size: 0.82rem;
+                }
+                .filter-item select {
+                    min-width: 130px;
+                    font-size: 16px;
                 }
                 .slot-cell {
-                    min-height: 70px;
+                    min-height: 60px;
                     transition: all 0.2s;
                     position: relative;
                     vertical-align: middle;
                 }
                 .slot-cell:hover {
-                    background: rgba(var(--accent-primary-rgb), 0.05);
+                    background: var(--accent-glow);
                 }
                 .empty-slot {
                     color: var(--text-muted);
                     font-size: 0.75rem;
-                    border: 1px dashed var(--border-color);
+                    border: 1px dashed var(--border);
                     border-radius: var(--radius-sm);
-                    padding: 0.75rem;
+                    padding: 0.6rem;
                     text-align: center;
                     transition: all 0.2s;
                 }
@@ -495,12 +510,20 @@ export default function TimetableEditor({ adminKey }: Props) {
                 .assignment-box {
                     background: var(--accent-primary);
                     color: white;
-                    padding: 0.6rem;
+                    padding: 0.5rem;
                     border-radius: var(--radius-sm);
-                    font-size: 0.85rem;
+                    font-size: 0.8rem;
                     position: relative;
                     animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-                    box-shadow: var(--shadow-sm);
+                    box-shadow: 0 2px 6px rgba(0, 122, 255, 0.3);
+                }
+                .assignment-box .teacher-name {
+                    color: white !important;
+                    font-size: 0.8rem;
+                }
+                .assignment-box .teacher-subject {
+                    color: rgba(255,255,255,0.8) !important;
+                    font-size: 0.68rem;
                 }
                 @keyframes popIn {
                     from { transform: scale(0.5); opacity: 0; }
@@ -508,55 +531,136 @@ export default function TimetableEditor({ adminKey }: Props) {
                 }
                 .remove-btn {
                     position: absolute;
-                    top: -8px;
-                    right: -8px;
-                    width: 22px;
-                    height: 22px;
+                    top: -6px;
+                    right: -6px;
+                    width: 20px;
+                    height: 20px;
                     border-radius: 50%;
                     background: var(--danger);
                     color: white;
-                    border: 2px solid var(--card-bg);
+                    border: 2px solid var(--bg-secondary);
                     cursor: pointer;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     font-weight: bold;
-                    font-size: 14px;
+                    font-size: 12px;
                     opacity: 0;
                     transform: scale(0.8);
                     transition: all 0.2s;
-                    box-shadow: var(--shadow-sm);
+                    box-shadow: var(--shadow);
                 }
                 .assignment-box:hover .remove-btn {
                     opacity: 1;
                     transform: scale(1);
                 }
                 .conflict {
-                    background: rgba(239, 68, 68, 0.1) !important;
+                    background: var(--danger-bg) !important;
                     border: 1px solid var(--danger) !important;
                 }
                 .conflict::after {
-                    content: '⚠️ Conflict';
+                    content: '⚠️';
                     position: absolute;
                     bottom: 2px;
                     right: 4px;
-                    font-size: 0.65rem;
-                    color: var(--danger);
-                    font-weight: bold;
+                    font-size: 0.6rem;
                 }
                 .locked-cell {
-                    background: var(--bg-secondary) !important;
-                    opacity: 0.4;
+                    background: var(--bg-primary) !important;
+                    opacity: 0.35;
                     cursor: not-allowed;
                 }
                 .saving-indicator {
                     margin-left: auto;
-                    font-size: 0.85rem;
-                    color: var(--accent-secondary);
+                    font-size: 0.82rem;
+                    color: var(--accent-primary);
                     font-weight: 500;
                     display: flex;
                     align-items: center;
-                    gap: 0.6rem;
+                    gap: 0.5rem;
+                }
+
+                /* ── Mobile breakpoints ── */
+                @media (max-width: 768px) {
+                    .editor-layout {
+                        grid-template-columns: 1fr;
+                        gap: 0.75rem;
+                    }
+                    .editor-sidebar {
+                        max-height: none;
+                        order: -1;
+                    }
+                    .editor-sidebar .section-title {
+                        font-size: 0.95rem;
+                    }
+                    .teacher-drag-list {
+                        flex-direction: row;
+                        overflow-x: auto;
+                        overflow-y: hidden;
+                        gap: 0.5rem;
+                        padding: 0.25rem 0;
+                        scrollbar-width: none;
+                    }
+                    .teacher-drag-list::-webkit-scrollbar {
+                        display: none;
+                    }
+                    .draggable-teacher {
+                        min-width: 130px;
+                        flex-shrink: 0;
+                        padding: 0.6rem !important;
+                    }
+                    .draggable-teacher .teacher-name {
+                        font-size: 0.8rem;
+                    }
+                    .draggable-teacher .teacher-subject {
+                        font-size: 0.68rem;
+                    }
+                    .editor-header {
+                        flex-direction: column;
+                        align-items: stretch;
+                        gap: 0.5rem;
+                    }
+                    .view-toggle {
+                        width: 100%;
+                    }
+                    .ed-toggle-btn {
+                        flex: 1;
+                        text-align: center;
+                    }
+                    .filter-item {
+                        width: 100%;
+                    }
+                    .filter-item select {
+                        flex: 1;
+                    }
+                }
+
+                @media (max-width: 640px) {
+                    .remove-btn {
+                        opacity: 1;
+                        transform: scale(1);
+                        width: 18px;
+                        height: 18px;
+                        font-size: 11px;
+                        top: -5px;
+                        right: -5px;
+                    }
+                    .slot-cell {
+                        min-height: 50px;
+                    }
+                    .empty-slot {
+                        padding: 0.4rem;
+                        font-size: 0.7rem;
+                    }
+                    .assignment-box {
+                        padding: 0.4rem;
+                    }
+                    .assignment-box .teacher-name {
+                        font-size: 0.72rem !important;
+                    }
+                    .assignment-box .teacher-subject {
+                        font-size: 0.62rem !important;
+                    }
                 }
             `}</style>
         </div>

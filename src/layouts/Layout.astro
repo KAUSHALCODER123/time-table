@@ -13,10 +13,18 @@ const pathname = Astro.url.pathname;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+		/>
 		<meta
 			name="description"
 			content="Auto-generate school timetables with smart scheduling. No conflicts, fair distribution."
+		/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
 		/>
 		<title>{title}</title>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -43,7 +51,9 @@ const pathname = Astro.url.pathname;
 					<span class="logo-icon">📅</span>
 					TimeTable Pro
 				</a>
-				<nav>
+
+				<!-- Desktop nav -->
+				<nav class="nav-desktop">
 					<ul class="nav-links">
 						<li>
 							<a
@@ -61,14 +71,33 @@ const pathname = Astro.url.pathname;
 						</li>
 					</ul>
 				</nav>
+
 				<div class="header-actions">
 					<ThemeToggle client:load />
 				</div>
 			</div>
 		</header>
 
-		<main>
+		<main class="main-content">
 			<slot />
 		</main>
+
+		<!-- iOS-style bottom tab bar for mobile -->
+		<nav class="mobile-tab-bar" aria-label="Mobile navigation">
+			<a
+				href="/"
+				class:list={["mobile-tab", { active: pathname === "/" }]}
+			>
+				<span class="mobile-tab-icon">📅</span>
+				<span class="mobile-tab-label">Timetable</span>
+			</a>
+			<a
+				href="/admin"
+				class:list={["mobile-tab", { active: pathname === "/admin" }]}
+			>
+				<span class="mobile-tab-icon">⚙️</span>
+				<span class="mobile-tab-label">Admin</span>
+			</a>
+		</nav>
 	</body>
 </html>

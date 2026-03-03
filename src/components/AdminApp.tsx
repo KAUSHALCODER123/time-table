@@ -600,14 +600,14 @@ function GenerateTab({ adminKey }: { adminKey: string }) {
         <div className="fade-in">
             {toast && <Toast message={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
 
-            <div className="card" style={{ padding: '2rem' }}>
-                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>🪄</div>
-                    <h2 style={{ fontSize: '1.4rem' }}>Selective Auto-Generation</h2>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Choose targets carefully. Unselected items will be excluded from the new schedule.</p>
+            <div className="card" style={{ padding: '1.25rem' }}>
+                <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                    <div style={{ fontSize: '2.5rem', marginBottom: '0.4rem' }}>🪄</div>
+                    <h2 style={{ fontSize: '1.2rem', fontWeight: 700 }}>Selective Auto-Generation</h2>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.4, marginTop: '0.3rem' }}>Choose targets carefully. Unselected items will be excluded.</p>
                 </div>
 
-                <div className="form-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                <div className="form-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
                     <div className="form-group">
                         <h4 style={{ marginBottom: '0.5rem', color: 'var(--accent-secondary)' }}>🗓️ Days ({selectedDays.size})</h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', maxHeight: '150px', overflowY: 'auto' }}>
@@ -716,14 +716,14 @@ export default function AdminApp() {
 
     return (
         <div className="container page-content">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                <h1 style={{ fontSize: '1.5rem', fontWeight: 700 }}>⚙️ Admin Dashboard</h1>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <h1 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em' }}>⚙️ Admin Dashboard</h1>
                 <button className="btn btn-ghost btn-sm" onClick={() => { setIsAuthed(false); setAdminKey(''); }}>
                     🚪 Logout
                 </button>
             </div>
 
-            <div className="tabs">
+            <div className="tabs" style={{ maxWidth: '100%' }}>
                 {tabs.map((tab, i) => (
                     <button key={i} className={`tab-btn ${activeTab === i ? 'active' : ''}`} onClick={() => setActiveTab(i)}>
                         {tab.label}
