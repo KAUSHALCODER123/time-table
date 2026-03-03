@@ -1,23 +1,74 @@
+---
+import "../styles/global.css";
+import ThemeToggle from "../components/ThemeToggle";
+
+interface Props {
+	title?: string;
+}
+const { title = "Timetable Generator" } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Auto-generate school timetables with smart scheduling. No conflicts, fair distribution."
+		/>
+		<title>{title}</title>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<script is:inline>
+			const getTheme = () => {
+				if (
+					typeof localStorage !== "undefined" &&
+					localStorage.getItem("theme")
+				) {
+					return localStorage.getItem("theme");
+				}
+				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+					return "dark";
+				}
+				return "light";
+			};
+			document.documentElement.setAttribute("data-theme", getTheme());
+		</script>
 	</head>
 	<body>
-		<slot />
+		<header class="app-header">
+			<div class="header-inner">
+				<a href="/" class="logo">
+					<span class="logo-icon">📅</span>
+					TimeTable Pro
+				</a>
+				<nav>
+					<ul class="nav-links">
+						<li>
+							<a
+								href="/"
+								class:list={[{ active: pathname === "/" }]}
+								>View Timetable</a
+							>
+						</li>
+						<li>
+							<a
+								href="/admin"
+								class:list={[{ active: pathname === "/admin" }]}
+								>Admin</a
+							>
+						</li>
+					</ul>
+				</nav>
+				<div class="header-actions">
+					<ThemeToggle client:load />
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
