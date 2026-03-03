@@ -676,6 +676,14 @@ export default function AdminApp() {
     const [keyInput, setKeyInput] = useState('');
     const [activeTab, setActiveTab] = useState(0);
 
+    useEffect(() => {
+        const savedKey = localStorage.getItem('adminSecretKey');
+        if (savedKey) {
+            setAdminKey(savedKey);
+            setIsAuthed(true);
+        }
+    }, []);
+
     const tabs = [
         { label: '🗓️ Editor', component: <TimetableEditor adminKey={adminKey} /> },
         { label: '🕐 Time Slots', component: <TemplatesTab adminKey={adminKey} /> },
@@ -686,8 +694,10 @@ export default function AdminApp() {
 
     const handleLogin = () => {
         if (keyInput.trim()) {
-            setAdminKey(keyInput.trim());
+            const key = keyInput.trim();
+            setAdminKey(key);
             setIsAuthed(true);
+            localStorage.setItem('adminSecretKey', key);
         }
     };
 
@@ -718,7 +728,7 @@ export default function AdminApp() {
         <div className="container page-content">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <h1 style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em' }}>⚙️ Admin Dashboard</h1>
-                <button className="btn btn-ghost btn-sm" onClick={() => { setIsAuthed(false); setAdminKey(''); }}>
+                <button className="btn btn-ghost btn-sm" onClick={() => { setIsAuthed(false); setAdminKey(''); localStorage.removeItem('adminSecretKey'); }}>
                     🚪 Logout
                 </button>
             </div>

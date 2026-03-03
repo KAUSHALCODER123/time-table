@@ -1,12 +1,12 @@
 import type { APIRoute } from 'astro';
 import { supabase } from '../../lib/supabase';
 
-// Helper to check for admin key in Authorization header
-const isAdmin = (auth: string | null) => {
-    if (!auth) return false;
-    const key = auth.replace('Bearer ', '');
-    return key === import.meta.env.ADMIN_SECRET_KEY;
-};
+const ADMIN_KEY = import.meta.env.ADMIN_SECRET_KEY || 'admin';
+
+function isAdmin(request: Request): boolean {
+    const auth = request.headers.get('authorization') || request.headers.get('Authorization');
+    return auth === `Bearer ${ADMIN_KEY}`;
+}
 
 export const GET: APIRoute = async () => {
     const { data, error } = await supabase
@@ -20,8 +20,7 @@ export const GET: APIRoute = async () => {
 };
 
 export const PATCH: APIRoute = async ({ request }) => {
-    const auth = request.headers.get('Authorization');
-    if (!isAdmin(auth)) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+    if (!isAdmin(request)) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
 
     try {
         const { id, teacher_id, day, slot_index, class_id } = await request.json();
@@ -72,10 +71,10 @@ export const PATCH: APIRoute = async ({ request }) => {
     }
 };
 
-export const DELETE: APIRoute = async ({ request, url }) => {
-    const auth = request.headers.get('Authorization');
-    if (!isAdmin(auth)) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+export const DELETE: APIRoute = async ({ request }) => {
+    if (!isAdmin(request)) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
 
+    const url = new URL(request.url);
     const id = url.searchParams.get('id');
     const class_id = url.searchParams.get('class_id');
     const day = url.searchParams.get('day');

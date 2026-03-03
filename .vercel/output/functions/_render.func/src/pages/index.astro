@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TimetableView from "../components/TimetableView";
+---
+
+<Layout title="Timetable — View Schedule">
+	<div class="container page-content">
+		<div class="hero">
+			<h1>📅 School Timetable</h1>
+			<p>
+				View the auto-generated weekly schedule for each class. Select
+				your class below to see the timetable.
+			</p>
+		</div>
+		<TimetableView client:load />
+	</div>
+</Layout>
