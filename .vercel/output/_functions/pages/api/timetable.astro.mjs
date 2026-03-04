@@ -1,4 +1,4 @@
-import { s as supabase } from '../../chunks/supabase_quVRFhhd.mjs';
+import { s as supabase } from '../../chunks/supabase_CtFmt_Aa.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const ADMIN_KEY = "admin";

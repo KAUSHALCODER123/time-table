@@ -1,6 +1,6 @@
 import { e as createComponent, k as renderComponent, r as renderTemplate } from '../chunks/astro/server_CbvSu98a.mjs';
 import 'piccolore';
-import { $ as $$Layout } from '../chunks/Layout_BD2361p9.mjs';
+import { $ as $$Layout } from '../chunks/Layout_KX83eLjL.mjs';
 import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
 import { useState, useCallback, useEffect } from 'react';
 export { renderers } from '../renderers.mjs';
@@ -1281,10 +1281,10 @@ function AdminApp() {
 }
 
 const $$Admin = createComponent(($$result, $$props, $$slots) => {
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Admin \u2014 Timetable Generator" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "AdminApp", AdminApp, { "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/admin/Downloads/ECommerce-App2/tt-appo/blue-bar/src/components/AdminApp", "client:component-export": "default" })} ` })}`;
-}, "C:/Users/admin/Downloads/ECommerce-App2/tt-appo/blue-bar/src/pages/admin.astro", void 0);
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Admin \u2014 Timetable Generator" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "AdminApp", AdminApp, { "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/Yamini Warekar/Downloads/time-table-main/time-table-main/src/components/AdminApp", "client:component-export": "default" })} ` })}`;
+}, "C:/Users/Yamini Warekar/Downloads/time-table-main/time-table-main/src/pages/admin.astro", void 0);
 
-const $$file = "C:/Users/admin/Downloads/ECommerce-App2/tt-appo/blue-bar/src/pages/admin.astro";
+const $$file = "C:/Users/Yamini Warekar/Downloads/time-table-main/time-table-main/src/pages/admin.astro";
 const $$url = "/admin";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

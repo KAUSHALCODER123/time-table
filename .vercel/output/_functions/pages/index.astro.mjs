@@ -1,6 +1,6 @@
 import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CbvSu98a.mjs';
 import 'piccolore';
-import { $ as $$Layout } from '../chunks/Layout_BD2361p9.mjs';
+import { $ as $$Layout } from '../chunks/Layout_KX83eLjL.mjs';
 import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import jsPDF from 'jspdf';
@@ -422,10 +422,10 @@ const $$Index = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Timetable \u2014 View Schedule" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="container page-content"> <div class="hero"> <h1>📅 School Timetable</h1> <p>
 View the auto-generated weekly schedule for each class. Select
 				your class below to see the timetable.
-</p> </div> ${renderComponent($$result2, "TimetableView", TimetableView, { "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/admin/Downloads/ECommerce-App2/tt-appo/blue-bar/src/components/TimetableView", "client:component-export": "default" })} </div> ` })}`;
-}, "C:/Users/admin/Downloads/ECommerce-App2/tt-appo/blue-bar/src/pages/index.astro", void 0);
+</p> </div> ${renderComponent($$result2, "TimetableView", TimetableView, { "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/Yamini Warekar/Downloads/time-table-main/time-table-main/src/components/TimetableView", "client:component-export": "default" })} </div> ` })}`;
+}, "C:/Users/Yamini Warekar/Downloads/time-table-main/time-table-main/src/pages/index.astro", void 0);
 
-const $$file = "C:/Users/admin/Downloads/ECommerce-App2/tt-appo/blue-bar/src/pages/index.astro";
+const $$file = "C:/Users/Yamini Warekar/Downloads/time-table-main/time-table-main/src/pages/index.astro";
 const $$url = "";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
