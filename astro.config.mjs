@@ -12,4 +12,9 @@ export default defineConfig({
     },
   }),
   integrations: [react()],
+  vite: {
+    ssr: {
+      noExternal: ['react', 'react-dom'],
+    },
+  },
 });
