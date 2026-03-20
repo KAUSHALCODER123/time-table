@@ -1,14 +1,14 @@
-import type { APIRoute } from 'astro';
-import { supabase } from '../../lib/supabase';
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient(process.env.VITE_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL, process.env.VITE_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY);
 
-const ADMIN_KEY = import.meta.env.ADMIN_SECRET_KEY || 'admin';
+const ADMIN_KEY = process.env.ADMIN_SECRET_KEY || 'admin';
 
 function isAdmin(request: Request): boolean {
     const auth = request.headers.get('authorization');
     return auth === `Bearer ${ADMIN_KEY}`;
 }
 
-export const POST: APIRoute = async ({ request }) => {
+async function handlePOST({ request }) {
     if (!isAdmin(request)) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
 
     const body = await request.json();
@@ -22,7 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify(data), { status: 201 });
 };
 
-export const DELETE: APIRoute = async ({ request }) => {
+async function handleDELETE({ request }) {
     if (!isAdmin(request)) return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
 
     const url = new URL(request.url);
@@ -38,3 +38,12 @@ export const DELETE: APIRoute = async ({ request }) => {
     if (error) return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     return new Response(JSON.stringify({ success: true }), { status: 200 });
 };
+
+
+export const config = { runtime: 'edge' };
+export default async function handler(request) {
+    const method = request.method;
+    if (method === 'POST') return await handlePOST({ request });
+    if (method === 'DELETE') return await handleDELETE({ request });
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405 });
+}

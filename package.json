@@ -1,25 +1,31 @@
 {
   "name": "blue-bar",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "version": "0.0.1",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build --force",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/vercel": "^9.0.4",
-    "@supabase/supabase-js": "^2.98.0",
-    "astro": "^5.18.0",
+    "@supabase/supabase-js": "^2.39.3",
     "html2canvas": "^1.4.1",
-    "jspdf": "^4.2.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "tslib": "^2.8.1"
+    "jspdf": "^2.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1",
+    "lucide-react": "^0.303.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vercel/node": "^3.0.14",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
   }
 }

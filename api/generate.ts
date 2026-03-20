@@ -1,7 +1,7 @@
-import type { APIRoute } from 'astro';
-import { supabase } from '../../lib/supabase';
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient(process.env.VITE_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL, process.env.VITE_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY);
 
-const ADMIN_KEY = import.meta.env.ADMIN_SECRET_KEY || 'admin';
+const ADMIN_KEY = process.env.ADMIN_SECRET_KEY || 'admin';
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function isAdmin(request: Request): boolean {
@@ -9,7 +9,7 @@ function isAdmin(request: Request): boolean {
     return auth === `Bearer ${ADMIN_KEY}`;
 }
 
-export const POST: APIRoute = async ({ request }) => {
+async function handlePOST({ request }) {
     if (!isAdmin(request)) {
         return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
     }
@@ -144,3 +144,11 @@ export const POST: APIRoute = async ({ request }) => {
         return new Response(JSON.stringify({ error: err.message || 'Generation failed' }), { status: 500 });
     }
 };
+
+
+export const config = { runtime: 'edge' };
+export default async function handler(request) {
+    const method = request.method;
+    if (method === 'POST') return await handlePOST({ request });
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405 });
+}

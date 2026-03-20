@@ -12,7 +12,7 @@ const ACTION_QUERY_PARAMS$1 = {
   actionName: "_action"};
 const ACTION_RPC_ROUTE_PATTERN = "/_actions/[...path]";
 
-const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJocHhrbHppdXhqeHFkZ3lwcWVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NTU0ODYsImV4cCI6MjA4ODEzMTQ4Nn0.4v3a22DUSZG5_X3FyGmU0ZvDFLB_C-LaCJH3q_yc7Bc", "PUBLIC_SUPABASE_URL": "https://rhpxklziuxjxqdgypqer.supabase.co", "SITE": undefined, "SSR": true};
+const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkY3Bxd2hucnZubW9qZ3NjdHJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMTQ3MzksImV4cCI6MjA4OTU5MDczOX0.rZrMWdzlSegil1qWG-jsiU8vEh6yeiC5wBNf9KBa5MY", "PUBLIC_SUPABASE_URL": "https://udcpqwhnrvnmojgsctrp.supabase.co", "SITE": undefined, "SSR": true};
 const ACTION_QUERY_PARAMS = ACTION_QUERY_PARAMS$1;
 const codeToStatusMap = {
   // Implemented from IANA HTTP Status Code Registry
