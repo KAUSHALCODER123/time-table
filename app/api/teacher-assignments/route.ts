@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+const supabase = createClient((process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co') || (process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'), (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder') || (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder'));
 
 const ADMIN_KEY = process.env.ADMIN_SECRET_KEY || 'admin';
 
