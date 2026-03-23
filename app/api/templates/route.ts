@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-const supabase = createClient(process.env.VITE_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL, process.env.VITE_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY);
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
 const ADMIN_KEY = process.env.ADMIN_SECRET_KEY || 'admin';
 
@@ -10,8 +10,8 @@ function isAdmin(request: Request): boolean {
 
 async function handleGET() {
     const { data, error } = await supabase
-        .from('classes')
-        .select('*, time_slot_templates(name)')
+        .from('time_slot_templates')
+        .select('*')
         .order('created_at', { ascending: true });
 
     if (error) return new Response(JSON.stringify({ error: error.message }), { status: 500 });
@@ -23,8 +23,8 @@ async function handlePOST({ request }) {
 
     const body = await request.json();
     const { data, error } = await supabase
-        .from('classes')
-        .insert({ name: body.name, template_id: body.template_id })
+        .from('time_slot_templates')
+        .insert({ name: body.name, slots: body.slots || [] })
         .select()
         .single();
 
@@ -37,8 +37,8 @@ async function handlePUT({ request }) {
 
     const body = await request.json();
     const { data, error } = await supabase
-        .from('classes')
-        .update({ name: body.name, template_id: body.template_id })
+        .from('time_slot_templates')
+        .update({ name: body.name, slots: body.slots })
         .eq('id', body.id)
         .select()
         .single();
@@ -52,14 +52,14 @@ async function handleDELETE({ request }) {
 
     const url = new URL(request.url);
     const id = url.searchParams.get('id');
-    const { error } = await supabase.from('classes').delete().eq('id', id);
+    const { error } = await supabase.from('time_slot_templates').delete().eq('id', id);
 
     if (error) return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     return new Response(JSON.stringify({ success: true }), { status: 200 });
 };
 
 
-export const config = { runtime: 'edge' };
+export const runtime = 'edge';
 export default async function handler(request) {
     const method = request.method;
     if (method === 'GET') return await handleGET();
@@ -68,3 +68,9 @@ export default async function handler(request) {
     if (method === 'DELETE') return await handleDELETE({ request });
     return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405 });
 }
+
+export async function GET(req) { return handler(req); }
+export async function POST(req) { return handler(req); }
+export async function PUT(req) { return handler(req); }
+export async function DELETE(req) { return handler(req); }
+  

@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-const supabase = createClient(process.env.VITE_SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL, process.env.VITE_SUPABASE_ANON_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY);
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
 const ADMIN_KEY = process.env.ADMIN_SECRET_KEY || 'admin';
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -146,9 +146,15 @@ async function handlePOST({ request }) {
 };
 
 
-export const config = { runtime: 'edge' };
+export const runtime = 'edge';
 export default async function handler(request) {
     const method = request.method;
     if (method === 'POST') return await handlePOST({ request });
     return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405 });
 }
+
+export async function GET(req) { return handler(req); }
+export async function POST(req) { return handler(req); }
+export async function PUT(req) { return handler(req); }
+export async function DELETE(req) { return handler(req); }
+  
